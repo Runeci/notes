@@ -1,0 +1,36 @@
+<div class="note_container">
+  <div class="note_title-container" (click)="onEditStart()">
+    <div class="note_title" contenteditable="true"
+         appAutofocus
+         role="textbox"
+         #noteTitle
+         (input)="description = noteTitle.innerText"></div>
+    <div class="note_title-label">{{ editingStarted ? 'Enter title' : 'Title...' }}</div>
+  </div>
+
+  <ng-container *ngIf="editingStarted">
+    <div class="note_description-container">
+      <div class="note_description"
+           #noteDescription
+           appAutofocus
+           contenteditable="true"
+           role="textbox"></div>
+      <div class="note_description-label" [ngClass]="{hide: descriptionEdited}" >Note...</div>
+    </div>
+
+    <div class="new-note_actions">
+      <button class="btn"
+              type="button"
+              (click)="onAdd()"
+      >Add
+      </button>
+      <button class="btn"
+              type="button"
+              (click)="onClose()"
+      >Close
+      </button>
+    </div>
+  </ng-container>
+
+</div>
+
