@@ -1,0 +1,13 @@
+<div class="notes_board">
+    <div class="note" *ngFor="let note of notes; let index = index">
+        <h2 class="note_title">{{ note.title }}</h2>
+        <div class="note_description">{{ note.description }}</div>
+        <ul class="note_tags" *ngIf="note.tags">
+            <li class="note_tag" *ngFor="let tag of note.tags">{{ tag }}</li>
+        </ul>
+        <div class="note_actions">
+            <button type="button" (click)="onUpdate(index)">Update</button>
+            <button type="button" (click)="onDelete(index)">Delete</button>
+        </div>
+    </div>
+</div>

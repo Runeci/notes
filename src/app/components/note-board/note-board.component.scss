@@ -1,0 +1,27 @@
+.note {
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.note_title {
+    font-weight: bold;
+    margin: 0;
+}
+
+.note_tags {
+    display: flex;
+    gap: 5px;
+    list-style: none;
+    padding: 0;
+}
+
+.note_tag {
+    padding: 3px;
+    min-width: 20px;
+    background-color: rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-radius: 5px;
+}

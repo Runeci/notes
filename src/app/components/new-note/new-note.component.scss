@@ -18,6 +18,11 @@
 
 }
 
+.note_description,
+.note_title {
+    min-height: 20px;
+}
+
 .note_description-label,
 .note_title-label {
   color:  rgba(0, 0, 0, 0.6);
@@ -52,5 +57,32 @@
 }
 
 .hide {
-  display: none;
+    display: none;
+}
+
+.tags_container {
+    display: flex;
+    gap: 5px;
+}
+
+.tag {
+    padding: 3px;
+    min-width: 20px;
+    background-color: rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-radius: 5px;
+}
+
+p {
+    display: inline;
+    height: 40px;
+}
+
+.hidden {
+    display: none;
+}
+
+.note_description-label,
+.note_title-label {
+    opacity: 0.6;
 }
