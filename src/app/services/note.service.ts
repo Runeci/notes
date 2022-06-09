@@ -8,7 +8,7 @@ import { Subject } from 'rxjs';
 export class NoteService {
     public notesChanged = new Subject<Note[]>();
     public notesArr: Note[] = [
-        { title: 'bla1', description: 'bla1-desc', tags: ['1', '1'] },
+        { title: 'bla1 #;leff', description: 'bla1-desc', tags: ['1', '1'] },
         { title: 'bla2', description: 'bla2-descr', tags: ['1', '1'] },
     ];
 

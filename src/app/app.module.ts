@@ -5,20 +5,23 @@ import { AppComponent } from './app.component';
 import { NewNoteComponent } from './components/new-note/new-note.component';
 import { FormsModule } from '@angular/forms';
 import { AutofocusDirective } from './directives/autofocus.directive';
-import { NoteBoardComponent } from './components/note-board/note-board.component';
+import {  NoteBoardComponent } from './components/note-board/note-board.component';
+import { EditNoteComponent } from './components/edit-note/edit-note.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NewNoteComponent,
-    AutofocusDirective,
-    NoteBoardComponent,
-  ],
+    declarations: [
+        AppComponent,
+        NewNoteComponent,
+        AutofocusDirective,
+        NoteBoardComponent,
+        EditNoteComponent,
+    ],
     imports: [
         BrowserModule,
         FormsModule
     ],
-  providers: [],
-  bootstrap: [AppComponent]
+    providers: [],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

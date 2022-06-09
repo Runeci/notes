@@ -2,41 +2,24 @@
     <div class="note_title-container" (click)="onEditStart()">
         <div class="note_title"
              #noteTitle
-             data-text="Title..."
-             (click)="focus($event)"
+             contenteditable="true"
+             role="textbox"
+             (keyup)="onPrint($event, noteTitle)"
         >
-            <p #noteTitleText
-               class="note_title-text"
-               contenteditable="true"
-               appAutofocus
-               role="textbox"
-               (keyup)="onPrint($event, noteTitleText, noteTitle)"
-            >
-            </p>
+
         </div>
-        <div class="note_title-label"
-             [ngClass]="{hidden: toggleLabel(noteTitleText)}"
-        >Title...</div>
+
     </div>
 
     <ng-container *ngIf="editingStarted">
         <div class="note_description-container">
             <div class="note_description"
                  #noteDescription
-                 (click)="focus($event)"
+                 contenteditable="true"
+                 appAutofocus
+                 role="textbox"
+                 (keyup)="onPrint($event, noteDescription)"
             >
-                <p #noteDescriptionText
-                   contenteditable="true"
-                   appAutofocus
-                   data-text="Notes..."
-                   role="textbox"
-                   (keyup)="onPrint($event, noteDescriptionText, noteDescription)"
-                >
-                </p>
-            </div>
-            <div class="note_description-label"
-                 [ngClass]="{hidden: toggleLabel(noteDescriptionText)}"
-            >Notes...
             </div>
         </div>
         <div class="tags_container" *ngIf="tags?.length">

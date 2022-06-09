@@ -1,7 +1,7 @@
 <div class="notes_board">
     <div class="note" *ngFor="let note of notes; let index = index">
         <h2 class="note_title">{{ note.title }}</h2>
-        <div class="note_description">{{ note.description }}</div>
+        <div class="note_description" #d [innerHTML]="highlight(d, note.description)"></div>
         <ul class="note_tags" *ngIf="note.tags">
             <li class="note_tag" *ngFor="let tag of note.tags">{{ tag }}</li>
         </ul>

@@ -11,31 +11,33 @@ export class HashtagService {
         this.renderer = rendererFactory.createRenderer(null, null);
     }
 
+    public get hashtagRegEx() {
+        return /(?:^|\s)(?:#)([a-zA-Z\d]+)/gm;
+    }
+
+    public highlightTags(string: string) {
+        const newStr = string
+            .split(' ')
+            .map((word) => {
+                if (word.match(this.hashtagRegEx)) {
+                    return word.replace(word, `<span style="color:blue">${ word }</span>`);
+                } else {
+                    return word;
+                }
+            })
+        return `${ newStr.join(' ') }`
+    }
+
     public addTag(tagsArr: Note['tags'], tag: string): void {
         tagsArr?.push(tag.slice(1));
     }
 
-    public createTagEl(tagText: string): HTMLSpanElement {
-        const newTag = this.renderer.createElement('span') as HTMLSpanElement;
-        newTag.innerText = ` ${ tagText }`;
-        newTag.contentEditable = 'true';
-        this.renderer.setStyle(newTag, 'color', 'blue');
-        this.renderer.setStyle(newTag, 'outline', 'none');
-        return newTag;
-    }
-
-    public getHashTags(inputText: string): string[] {
+    public checkIfTag(string: string): boolean {
         const regex = /(?:^|\s)(?:#)([a-zA-Z\d]+)/gm;
-        const matches = [];
-        let match;
-
-        while ((match = regex.exec(inputText))) {
-            matches.push(match[1]);
-        }
-        return matches;
+        return !!string.match(regex);
     }
 
-    public setCaret(el: Element) {
+    public setCaret(el: Element): void {
         const focusedEl = el as HTMLElement;
         const selection = window.getSelection();
         const range = document.createRange();
@@ -44,17 +46,5 @@ export class HashtagService {
         range.collapse(false);
         selection?.addRange(range);
         focusedEl.focus();
-    }
-
-    public moveCaretBack(event: KeyboardEvent, containerEl: HTMLElement) {
-        if (event.key !== 'Backspace' && containerEl.childNodes.length !== 1) {
-            return;
-        }
-
-        if (containerEl.lastElementChild?.innerHTML.length === 0) {
-            containerEl.lastElementChild?.remove();
-            const lastEl = containerEl.lastChild as HTMLAnchorElement;
-            this.setCaret(lastEl);
-        }
     }
 }
