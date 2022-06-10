@@ -1,6 +1,45 @@
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 body {
-  background-color: darkseagreen;
+    background-color: darkseagreen;
 }
+
+.tags_container {
+    display: flex;
+    flex-flow: wrap;
+    gap: 5px;
+}
+
+.tag {
+    padding: 3px;
+    min-width: 20px;
+    background-color: rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-radius: 5px;
+    height: 20px;
+}
+
+.btn {
+    border: none;
+    height: 30px;
+    width: 50px;
+    border-radius: 5px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}
+
 .highlight {
-     color: blue;
+    color: blue;
 }
+
+[contenteditable] {
+  outline: 0 solid transparent;
+}
+
+
+

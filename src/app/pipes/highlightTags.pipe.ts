@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
     name: 'highlightTags',
 })
 export class HighlightTagsPipe implements PipeTransform {
-    transform(value: any): any {
+    transform(value: string): string {
         const regex = /(?:^|\s)(?:#)([a-zA-Z\d]+)/gm;
         const match = value.match(regex);
 

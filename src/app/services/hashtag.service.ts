@@ -1,14 +1,17 @@
-import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Note } from '../typing/note.interface';
+import { LocalStorageService } from './local-storage.service';
+import { Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
 })
 export class HashtagService {
-    private renderer: Renderer2;
+    constructor(private lsService: LocalStorageService) {
+    }
 
-    constructor(rendererFactory: RendererFactory2) {
-        this.renderer = rendererFactory.createRenderer(null, null);
+    get tags(): Note['tags']{
+        return this.lsService.getFromLS('notes').map((note) => note.tags ? note.tags : []).flat()
     }
 
     public get hashtagRegEx() {
@@ -24,17 +27,12 @@ export class HashtagService {
                 } else {
                     return word;
                 }
-            })
-        return `${ newStr.join(' ') }`
+            });
+        return `${ newStr.join(' ') }`;
     }
 
     public addTag(tagsArr: Note['tags'], tag: string): void {
         tagsArr?.push(tag.slice(1));
-    }
-
-    public checkIfTag(string: string): boolean {
-        const regex = /(?:^|\s)(?:#)([a-zA-Z\d]+)/gm;
-        return !!string.match(regex);
     }
 
     public setCaret(el: Element): void {
@@ -46,5 +44,11 @@ export class HashtagService {
         range.collapse(false);
         selection?.addRange(range);
         focusedEl.focus();
+    }
+
+    public bla(event: KeyboardEvent, curEl: HTMLElement) {
+
+        curEl.innerHTML = this.highlightTags(curEl.innerText);
+        this.setCaret(curEl);
     }
 }
