@@ -14,9 +14,13 @@ export class NewNoteComponent {
     @ViewChild('noteDescription') public noteDescriptionEl!: ElementRef<HTMLDivElement>;
 
     public editingStarted = false;
-    public tags: Note['tags'] = [];
+    public newNote: Note = {
+        title: '',
+        description: '',
+        tags: []
+    };
 
-    public titleText = '';
+    public tags: Note['tags'] = [];
 
     constructor(private noteService: NoteService,
                 private tagService: HashtagService
@@ -31,12 +35,7 @@ export class NewNoteComponent {
     }
 
     public onAdd(): void {
-        const newNote = {
-            title: this.noteTitleEl.nativeElement.innerText,
-            description: this.noteDescriptionEl.nativeElement.innerText,
-            tags: this.tags,
-        };
-        this.noteService.addNote(newNote);
+        this.noteService.addNote({ ...this.newNote, tags: this.tags });
         this.clearNoteForm();
     }
 
@@ -48,7 +47,6 @@ export class NewNoteComponent {
     public onPrint(event: KeyboardEvent, curEl: HTMLElement): void {
         const wordsArr = curEl.innerText.split(' ');
         const lastWord = wordsArr[wordsArr.length - 1];
-
         const tagAlreadyExists = this.tags
             ?.some((tag) => tag.trim() === lastWord.slice(1).trim());
 
@@ -60,6 +58,11 @@ export class NewNoteComponent {
         }
 
         curEl.innerHTML = this.tagService.highlightTags(curEl.innerText);
+
+        this.newNote = {
+            title: this.noteTitleEl.nativeElement.innerText,
+            description: this.noteDescriptionEl.nativeElement.innerText,
+        };
         setCaret(curEl);
     }
 

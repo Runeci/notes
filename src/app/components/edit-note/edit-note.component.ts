@@ -12,15 +12,18 @@ import { setCaret } from '../../helpers/caret.helper';
 export class EditNoteComponent implements OnInit, AfterViewInit {
     @ViewChild('noteTitle') noteTitleEl!: ElementRef<HTMLElement>;
     @ViewChild('noteDescription') noteDescriptionEl!: ElementRef<HTMLElement>;
-    public title!: Note['title'];
+
+    private editedNote!: Note;
 
     constructor(@Inject(MAT_DIALOG_DATA) public note: Note,
                 public dialogRef: MatDialogRef<EditNoteComponent>,
                 private tagService: HashtagService) {
     }
 
-    public ngOnInit(): void {
 
+    public ngOnInit(): void {
+        this.editedNote = {...this.note};
+        this.editedNote.tags = this.note.tags ?  [...this.note.tags] : [];
     }
 
     public ngAfterViewInit() {
@@ -46,13 +49,13 @@ export class EditNoteComponent implements OnInit, AfterViewInit {
             setCaret(curEl);
         }, 0);
 
-        this.note.title = this.noteTitleEl.nativeElement.innerText;
-        this.note.description = this.noteDescriptionEl.nativeElement.innerText;
+        this.editedNote.title = this.noteTitleEl.nativeElement.innerText;
+        this.editedNote.description = this.noteDescriptionEl.nativeElement.innerText;
     }
 
     public onClose() {
         this.dialogRef.close({
-            data: this.note,
+            data: {...this.editedNote, tags: this.note.tags},
         });
     }
 }

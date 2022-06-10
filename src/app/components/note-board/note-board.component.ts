@@ -31,8 +31,11 @@ export class NoteBoardComponent implements OnInit {
 
         this.filterService.filterChanged
             .subscribe(
-                (filterTags) => !filterTags?.length ? this.filteredNotes = this.notes
-                    : this.filteredNotes = this.filterService.filterByTags(filterTags, this.notes)
+                (filterTags) => {
+                    this.filteredNotes = !filterTags?.length ? this.notes
+                        : this.filterService.filterByTags(filterTags, this.noteService.notes);
+                    console.log(this.filteredNotes);
+                }
             );
     }
 
@@ -42,13 +45,15 @@ export class NoteBoardComponent implements OnInit {
     }
 
     public onEdit(index: number): void {
-        const note = this.notes[index];
+        const note = this.filteredNotes[index];
         const dialogRef = this.matDialog.open(EditNoteComponent, {
             data: note,
             width: '400px',
         });
 
         dialogRef.afterClosed().subscribe(
-            (note) => this.noteService.updateNote(index, note.data));
+            (note) => {
+                this.noteService.updateNote(index, note.data);
+            });
     }
 }

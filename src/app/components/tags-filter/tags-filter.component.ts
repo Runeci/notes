@@ -22,7 +22,6 @@ export class TagsFilterComponent implements OnInit {
 
     public ngOnInit(): void {
         this.tags = this.tagService.tags;
-
         this.noteService.notesChanged.subscribe(
             () => this.tags = this.tagService.tags
         );

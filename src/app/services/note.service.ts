@@ -30,9 +30,14 @@ export class NoteService {
         this.notesChanged.next([...this.notesArr]);
     }
 
-    public updateNote(index: number, updatedNote: Note) {
+    public updateNote(index: number, updatedNote: Note): void {
         this.notesArr[index] = updatedNote;
         this.lsService.saveToLS('notes', this.notesArr);
         this.notesChanged.next([...this.notesArr]);
+    }
+
+    public updateNotes(note: Note[]): void {
+        this.lsService.saveToLS('notes', note);
+        this.notesChanged.next(note);
     }
 }
