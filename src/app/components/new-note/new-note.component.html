@@ -5,22 +5,28 @@
              contenteditable="true"
              role="textbox"
              (keyup)="onPrint($event, noteTitle)"
-             [innerHTML]="titleText | highlightTags"
-        >
-
+             (keydown.enter)="$event.preventDefault()"
+        ></div>
+        <div class="note_title-label"
+             [ngClass]="{hidden: noteTitle.innerText.length}"
+        >Title...
         </div>
-
     </div>
 
     <ng-container *ngIf="editingStarted">
+        <mat-divider></mat-divider>
         <div class="note_description-container">
             <div class="note_description"
                  #noteDescription
                  contenteditable="true"
-                 appAutofocus
                  role="textbox"
+                 appAutofocus
                  (keyup)="onPrint($event, noteDescription)"
-            >
+                 (keydown.enter)="$event.preventDefault()"
+            ></div>
+            <div class="note_description-label"
+                 [ngClass]="{hidden: noteDescription.innerText.length}"
+            >Notes...
             </div>
         </div>
         <div class="tags_container" *ngIf="tags?.length">
@@ -30,6 +36,7 @@
         <div class="new-note_actions">
             <button class="btn"
                     type="button"
+                    [disabled]="!noteTitle.innerText.length || !noteDescription.innerText.length"
                     (click)="onAdd()"
             >Add
             </button>

@@ -3,8 +3,8 @@
   flex-direction: column;
   gap: 10px;
   max-width: 600px;
-  padding: 10px 20px;
-  margin: 0 auto;
+  padding: 20px 20px;
+  margin: 0 auto 20px auto;
   border-radius: 5px;
   background-color: white;
   -webkit-box-shadow: 0 4px 8px 6px rgba(34, 60, 80, 0.2);
@@ -15,13 +15,11 @@
 .note_description-container,
 .note_title-container {
   position: relative;
-
 }
 
 .note_description,
 .note_title {
     min-height: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .note_description-label,
@@ -33,45 +31,10 @@
   top: 0;
 }
 
-[contenteditable] {
-  outline: 0 solid transparent;
-}
-
 .new-note_actions {
   display: flex;
   align-self: flex-end;
   gap: 10px;
-
-  .btn {
-    border: none;
-    height: 30px;
-    width: 50px;
-    border-radius: 5px;
-    background-color: transparent;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.1);
-    }
-  }
-}
-
-.hide {
-    display: none;
-}
-
-.tags_container {
-    display: flex;
-    gap: 5px;
-}
-
-.tag {
-    padding: 3px;
-    min-width: 20px;
-    background-color: rgba(0, 0, 0, 0.1);
-    text-align: center;
-    border-radius: 5px;
 }
 
 p {

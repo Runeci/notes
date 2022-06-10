@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NoteService } from '../../services/note.service';
 import { Note } from '../../typing/note.interface';
 import { HashtagService } from '../../services/hashtag.service';
@@ -44,19 +44,19 @@ export class NewNoteComponent {
         this.clearNoteForm();
     }
 
-    public onPrint(event: KeyboardEvent, curEl: HTMLElement) {
+    public onPrint(event: KeyboardEvent, curEl: HTMLElement): void {
         const wordsArr = curEl.innerText.split(' ');
         const lastWord = wordsArr[wordsArr.length - 1];
 
         if (lastWord.match(this.tagService.hashtagRegEx) && event.key === ' ') {
-            this.tagService.addTag(this.tags, lastWord);
+            this.tagService.addTag(this.tags, lastWord.match(this.tagService.hashtagRegEx)![0]);
         }
 
         curEl.innerHTML = this.tagService.highlightTags(curEl.innerText);
         this.tagService.setCaret(curEl);
     }
 
-    private clearNoteForm() {
+    private clearNoteForm(): void {
         this.noteTitleEl.nativeElement.innerHTML = '';
         this.noteDescriptionEl.nativeElement.innerHTML = '';
         this.tags = [];
