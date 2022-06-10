@@ -34,7 +34,6 @@ export class NoteBoardComponent implements OnInit {
                 (filterTags) => {
                     this.filteredNotes = !filterTags?.length ? this.notes
                         : this.filterService.filterByTags(filterTags, this.noteService.notes);
-                    console.log(this.filteredNotes);
                 }
             );
     }
