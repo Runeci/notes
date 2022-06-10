@@ -20,19 +20,19 @@ export class NoteService {
 
     public addNote(note: Note): void {
         this.notesArr.push(note);
-        this.notesChanged.next([...this.notesArr]);
         this.lsService.saveToLS('notes', this.notesArr);
+        this.notesChanged.next([...this.notesArr]);
     }
 
     public deleteNote(index: number): void {
         this.notesArr.splice(index, 1);
-        this.notesChanged.next([...this.notesArr]);
         this.lsService.saveToLS('notes', this.notesArr);
+        this.notesChanged.next([...this.notesArr]);
     }
 
     public updateNote(index: number, updatedNote: Note) {
         this.notesArr[index] = updatedNote;
-        this.notesChanged.next([...this.notesArr]);
         this.lsService.saveToLS('notes', this.notesArr);
+        this.notesChanged.next([...this.notesArr]);
     }
 }

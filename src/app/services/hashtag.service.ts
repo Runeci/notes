@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Note } from '../typing/note.interface';
 import { LocalStorageService } from './local-storage.service';
-import { Subject } from 'rxjs';
+import { setCaret } from '../helpers/caret.helper';
 
 @Injectable({
     providedIn: 'root',
@@ -10,15 +10,15 @@ export class HashtagService {
     constructor(private lsService: LocalStorageService) {
     }
 
-    get tags(): Note['tags']{
-        return this.lsService.getFromLS('notes').map((note) => note.tags ? note.tags : []).flat()
+    get tags(): Note['tags'] {
+        return this.lsService.getFromLS('notes').map((note) => note.tags ? note.tags : []).flat();
     }
 
-    public get hashtagRegEx() {
+    public get hashtagRegEx(): RegExp {
         return /(?:^|\s)(?:#)([a-zA-Z\d]+)/gm;
     }
 
-    public highlightTags(string: string) {
+    public highlightTags(string: string): string {
         const newStr = string
             .split(' ')
             .map((word) => {
@@ -33,22 +33,5 @@ export class HashtagService {
 
     public addTag(tagsArr: Note['tags'], tag: string): void {
         tagsArr?.push(tag.slice(1));
-    }
-
-    public setCaret(el: Element): void {
-        const focusedEl = el as HTMLElement;
-        const selection = window.getSelection();
-        const range = document.createRange();
-        selection?.removeAllRanges();
-        range.selectNodeContents(el);
-        range.collapse(false);
-        selection?.addRange(range);
-        focusedEl.focus();
-    }
-
-    public bla(event: KeyboardEvent, curEl: HTMLElement) {
-
-        curEl.innerHTML = this.highlightTags(curEl.innerText);
-        this.setCaret(curEl);
     }
 }

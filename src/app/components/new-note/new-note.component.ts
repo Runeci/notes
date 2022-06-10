@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NoteService } from '../../services/note.service';
 import { Note } from '../../typing/note.interface';
 import { HashtagService } from '../../services/hashtag.service';
+import { setCaret } from '../../helpers/caret.helper';
 
 @Component({
     selector: 'app-new-note',
@@ -48,12 +49,18 @@ export class NewNoteComponent {
         const wordsArr = curEl.innerText.split(' ');
         const lastWord = wordsArr[wordsArr.length - 1];
 
+        const tagAlreadyExists = this.tags
+            ?.some((tag) => tag.trim() === lastWord.slice(1).trim());
+
         if (lastWord.match(this.tagService.hashtagRegEx) && event.key === ' ') {
+            if (tagAlreadyExists) {
+                return;
+            }
             this.tagService.addTag(this.tags, lastWord.match(this.tagService.hashtagRegEx)![0]);
         }
 
         curEl.innerHTML = this.tagService.highlightTags(curEl.innerText);
-        this.tagService.setCaret(curEl);
+        setCaret(curEl);
     }
 
     private clearNoteForm(): void {

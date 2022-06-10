@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from 
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Note } from '../../typing/note.interface';
 import { HashtagService } from '../../services/hashtag.service';
+import { setCaret } from '../../helpers/caret.helper';
 
 @Component({
     selector: 'app-edit-note',
@@ -23,18 +24,28 @@ export class EditNoteComponent implements OnInit, AfterViewInit {
     }
 
     public ngAfterViewInit() {
-        this.tagService.setCaret(this.noteTitleEl.nativeElement);
+        setCaret(this.noteTitleEl.nativeElement);
     }
 
     public onPrint (event: KeyboardEvent, curEl: HTMLElement) {
         const wordsArr = curEl.innerText.split(' ');
         const lastWord = wordsArr[wordsArr.length - 1];
 
+        const tagAlreadyExists = this.note.tags
+            ?.some((tag) => tag.trim() === lastWord.slice(1).trim());
+
         if (lastWord.match(this.tagService.hashtagRegEx) && event.key === ' ') {
+            if (tagAlreadyExists) {
+                return;
+            }
             this.tagService.addTag(this.note.tags, lastWord.match(this.tagService.hashtagRegEx)![0]);
         }
 
-        setTimeout(() => this.tagService.bla(event, curEl), 0);
+        setTimeout(() => {
+            curEl.innerHTML = this.tagService.highlightTags(curEl.innerText);
+            setCaret(curEl);
+        }, 0);
+
         this.note.title = this.noteTitleEl.nativeElement.innerText;
         this.note.description = this.noteDescriptionEl.nativeElement.innerText;
     }

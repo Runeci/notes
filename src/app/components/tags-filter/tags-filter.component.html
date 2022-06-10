@@ -1,0 +1,9 @@
+<mat-form-field appearance="fill">
+    <mat-label>Tags</mat-label>
+    <mat-select  [formControl]="tagSelection" multiple>
+        <mat-option *ngFor="let tag of tags" [value]="tag">{{tag}}
+<!--            <button>Delete</button>-->
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<button (click)="onFilter()">Filter</button>

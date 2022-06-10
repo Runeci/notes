@@ -3,7 +3,7 @@ import { Note } from '../../typing/note.interface';
 import { NoteService } from '../../services/note.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditNoteComponent } from '../edit-note/edit-note.component';
-import { HashtagService } from '../../services/hashtag.service';
+import { FilterService } from '../../services/filter.service';
 
 @Component({
     selector: 'app-note-board',
@@ -16,7 +16,7 @@ export class NoteBoardComponent implements OnInit {
 
     constructor(private noteService: NoteService,
                 private matDialog: MatDialog,
-                private tagService: HashtagService,
+                private filterService: FilterService
     ) {
     }
 
@@ -24,31 +24,24 @@ export class NoteBoardComponent implements OnInit {
         this.notes = this.noteService.notes;
         this.filteredNotes = this.noteService.notes;
         this.noteService.notesChanged.subscribe(
-            (notes) => this.notes = notes
+            (notes) => {
+                this.filteredNotes = notes;
+            }
         );
 
-        this.tagService.filterChanged
+        this.filterService.filterChanged
             .subscribe(
-                (filteredTags) => {
-                    if (!filteredTags?.length) {
-                        this.filteredNotes = this.notes;
-                    } else {
-                        this.filteredNotes = this.notes.filter(note => {
-                            if (!note.tags) {
-                                return false;
-                            }
-                            return note.tags.some(tag => filteredTags?.includes(tag));
-                        });
-                    }
-                }
+                (filterTags) => !filterTags?.length ? this.filteredNotes = this.notes
+                    : this.filteredNotes = this.filterService.filterByTags(filterTags, this.notes)
             );
     }
 
-    public onDelete(index: number) {
+    public onDelete(index: number): void {
         this.noteService.deleteNote(index);
+        this.filteredNotes = this.noteService.notes;
     }
 
-    public onEdit(index: number) {
+    public onEdit(index: number): void {
         const note = this.notes[index];
         const dialogRef = this.matDialog.open(EditNoteComponent, {
             data: note,
