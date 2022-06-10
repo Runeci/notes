@@ -14,7 +14,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { TagsFilterComponent } from './components/tags-filter/tags-filter.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { EditTagsComponent } from './components/edit-tags/edit-tags.component';
 
 @NgModule({
     declarations: [
@@ -25,7 +24,6 @@ import { EditTagsComponent } from './components/edit-tags/edit-tags.component';
         EditNoteComponent,
         HighlightTagsPipe,
         TagsFilterComponent,
-        EditTagsComponent,
     ],
     imports: [
         BrowserModule,
