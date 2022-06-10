@@ -15,6 +15,8 @@ export class NewNoteComponent {
     public editingStarted = false;
     public tags: Note['tags'] = [];
 
+    public titleText = '';
+
     constructor(private noteService: NoteService,
                 private tagService: HashtagService
     ) {

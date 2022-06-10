@@ -20,7 +20,7 @@ export class HashtagService {
             .split(' ')
             .map((word) => {
                 if (word.match(this.hashtagRegEx)) {
-                    return word.replace(word, `<span style="color:blue">${ word }</span>`);
+                    return word.replace(word, `<span class="highlight"">${ word }</span>`);
                 } else {
                     return word;
                 }

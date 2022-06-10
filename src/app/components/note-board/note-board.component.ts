@@ -3,7 +3,6 @@ import { Note } from '../../typing/note.interface';
 import { NoteService } from '../../services/note.service';
 import { HashtagService } from '../../services/hashtag.service';
 
-
 @Component({
     selector: 'app-note-board',
     templateUrl: './note-board.component.html',

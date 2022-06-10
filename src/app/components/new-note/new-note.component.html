@@ -5,6 +5,7 @@
              contenteditable="true"
              role="textbox"
              (keyup)="onPrint($event, noteTitle)"
+             [innerHTML]="titleText | highlightTags"
         >
 
         </div>
